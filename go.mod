@@ -1,4 +1,4 @@
-module github.com/attapon-th/go-vsql_export
+module github.com/attapon-th/vsql_export
 
 go 1.20
 

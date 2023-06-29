@@ -7,7 +7,7 @@ import (
 	"io"
 	"strings"
 
-	"github.com/attapon-th/go-vsql_export/pkg"
+	"github.com/attapon-th/vsql_export/pkg"
 	"github.com/rs/zerolog/log"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
