@@ -5,7 +5,7 @@
 
 ### with `go install`
 ```
-go install github.com/attapon-th/go-vsql_export@latest
+go install github.com/attapon-th/go-vsql_export/vsql_export@latest
 ```
 
 ## How to use:
