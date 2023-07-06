@@ -42,7 +42,7 @@ func init() {
 	cobra.OnInitialize(initConfig)
 	// rootCmd.Flags().SortFlags = false
 	rootCmd.PersistentFlags().SortFlags = false
-	rootCmd.PersistentFlags().StringP("dsn", "d", "", "Veritca DSN (Example: vertica://dbadmin:password@localhost:5433/Vmart?sslmode=disable)")
+	rootCmd.PersistentFlags().StringP("dsn", "d", "", "Veritca DSN (default: read envolopment VERTICA_URI) (Example: vertica://dbadmin:password@localhost:5433/Vmart?sslmode=disable)")
 	rootCmd.PersistentFlags().StringP("host", "H", "localhost", "Veritca Hostname")
 	rootCmd.PersistentFlags().StringP("port", "", "5433", "Veritca Port")
 	rootCmd.PersistentFlags().StringP("username", "U", "dbadmin", "Veritca Username")
@@ -58,6 +58,7 @@ func init() {
 
 func initConfig() {
 	viper.AutomaticEnv()
+	viper.SetDefault("db.dsn", os.Getenv("VERTICA_URI"))
 	viper.BindPFlag("db.dsn", rootCmd.PersistentFlags().Lookup("dsn"))
 	viper.BindPFlag("db.host", rootCmd.PersistentFlags().Lookup("host"))
 	viper.BindPFlag("db.port", rootCmd.PersistentFlags().Lookup("port"))
@@ -65,7 +66,6 @@ func initConfig() {
 	viper.BindPFlag("db.password", rootCmd.PersistentFlags().Lookup("password"))
 	viper.BindPFlag("db.database", rootCmd.PersistentFlags().Lookup("database"))
 	viper.BindPFlag("log.level", rootCmd.PersistentFlags().Lookup("log-level"))
-
 	llv, _ := zerolog.ParseLevel(viper.GetString("log.level"))
 	zerolog.SetGlobalLevel(llv)
 	zerolog.TimeFieldFormat = zerolog.TimeFormatUnixMs
@@ -74,7 +74,7 @@ func initConfig() {
 		zerolog.ConsoleWriter{
 			Out:        os.Stdout,
 			NoColor:    false,
-			TimeFormat: "2006-01-02 15:04:05.000",
+			TimeFormat: "2006-01-02 15:04:05.999",
 		}).With().Timestamp().Logger()
 
 	for _, k := range viper.AllKeys() {
