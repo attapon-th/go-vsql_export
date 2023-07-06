@@ -15,18 +15,23 @@ go install github.com/attapon-th/vsql_export@main
 ```
 
 ## How to use:
+```shell
+# set connection with DSN URI
+export VERTICA_URI="vertica://user:password@localhost:5433/Vmart"
 
+# output: stdout
+vsql_export csv "SELECT * FROM public.test"
 
-### Export to CSV (stdout)
+# output: csv file
+vsql_export csv -o test.csv "SELECT * FROM public.test" 
 
-#### tool help
+# output: csv file and commpress with gzip
+vsql_export csv -o test.csv.gz -z gzip "SELECT * FROM public.test"
+```
+
+#### help
 
 ```shell
 vsql_export -h
 ```
 
-#### Use with DSN connection
-```shell
-export VERTICA_URI="vertica://user:password@localhost:5433/Vmart"
-vsql_export csv "SELECT * FROM public.test"
-```
